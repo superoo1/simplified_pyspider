@@ -1,6 +1,7 @@
 import logging
 logger = logging.getLogger(__file__)
 import pyspider
+import tornado
 
 class Processer(object):
     def __init__(self,inqueue, status_queue, newtask_queue, result_queue,):
@@ -43,7 +44,6 @@ class Fetcher(object):
             return "sync_fetch"
 
         application.register_function(sync_fetch, 'fetch')
-        import tornado.httpserver
         container = tornado.wsgi.WSGIContainer(application)
         xmlrpc_ioloop = tornado.ioloop.IOLoop()
         xmlrpc_server = tornado.httpserver.HTTPServer(container, io_loop=xmlrpc_ioloop)
@@ -74,7 +74,11 @@ class Scheduler(object):
             return "this is scheduler"
 
         application.register_function(sync_scheduler, 'scheduler')
-        import tornado.httpserver
+        # import tornado.httpserver
+        import tornado.wsgi
+        import  tornado.httpserver
+        import tornado.ioloop
+
         container = tornado.wsgi.WSGIContainer(application)
         xmlrpc_ioloop = tornado.ioloop.IOLoop()
         xmlrpc_server = tornado.httpserver.HTTPServer(container, io_loop=xmlrpc_ioloop)
