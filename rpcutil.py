@@ -1,6 +1,6 @@
 from xmlrpc import client as xmlrpc_client
 from xmlrpc.server import SimpleXMLRPCDispatcher
-
+import pyspider
 def connect_rpc(ctx, param, value):
     if not value:
         return

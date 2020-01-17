@@ -1,5 +1,6 @@
 import logging
 logger = logging.getLogger(__file__)
+import pyspider
 
 class Processer(object):
     def __init__(self,inqueue, status_queue, newtask_queue, result_queue,):
