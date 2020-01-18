@@ -8,26 +8,6 @@ def connect_rpc(ctx, param, value):
 
 
 
-def rpc_server():
-    import umsgpack
-    from pyspider.libs.wsgi_xmlrpc import WSGIXMLRPCApplication
-    from xmlrpc.client import Binary
-    application = WSGIXMLRPCApplication()
-    def sync_fetch(task):
-        print("sync_fetch")
-        return "sync_fetch"
-
-    application.register_function(sync_fetch, 'fetch')
-    import tornado.wsgi
-    import tornado.ioloop
-    import tornado.httpserver
-
-    container = tornado.wsgi.WSGIContainer(application)
-    xmlrpc_ioloop = tornado.ioloop.IOLoop()
-    xmlrpc_server = tornado.httpserver.HTTPServer(container, io_loop=xmlrpc_ioloop)
-    xmlrpc_server.listen(port=port, address=bind)
-    logger.info('fetcher.xmlrpc listening on %s:%s', bind, port)
-    self.xmlrpc_ioloop.start()
 
 
 
