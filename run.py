@@ -20,6 +20,7 @@ class Processer(object):
         print("on_task")
 
 
+
 class Fetcher(object):
     def __init__(self,inqueue,outqueue):
         self.inqueue = inqueue
@@ -41,6 +42,7 @@ class Fetcher(object):
 
         def sync_fetch(task):
             print("sync_fetch")
+            self.outqueue.put("")
             return "sync_fetch"
 
         application.register_function(sync_fetch, 'fetch')
@@ -71,6 +73,7 @@ class Scheduler(object):
 
         def sync_scheduler(task):
             print("this is scheduler")
+            self.outqueue.put('this is scheduler')
             return "this is scheduler"
 
         application.register_function(sync_scheduler, 'scheduler')
@@ -87,9 +90,6 @@ class Scheduler(object):
         xmlrpc_server.listen(port=port, address=bind)
         logger.info('Scheduler.xmlrpc listening on %s:%s', bind, port)
         xmlrpc_ioloop.start()
-
-
-
 
 
 
